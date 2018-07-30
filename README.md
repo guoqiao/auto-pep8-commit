@@ -3,7 +3,7 @@
 ## What
 This repo is a simple Python script, which does:
 
-- Run flake8 on your source code
+- Run pycodestyle on your source code
 - Group violations by Error Code
 - Sort Error Code by violation count, smaller first
 - Loop through each Error Code
@@ -13,7 +13,7 @@ This repo is a simple Python script, which does:
 
 ## Why
 One day, your team decide to follow PEP8 code style for Python.
-You run `flake8`, and discover thousands of errors.
+You run `pycodestyle`, and discover thousands of errors.
 It's not possible to do it manually, in limited time frame.
 
 An example in my project:
@@ -41,7 +41,7 @@ And you would like to start from Error Code with smaller violation count.
 Thus you don't get stuck in a monster one, and make progress quickly.
 
 At last, if some of the Error Code is too much job to fix, you can choose to
-ignore it in your flake8 config.
+ignore it in your pycodestyle config.
 
 As you can see, this whole process can be automated with a script.
 
@@ -51,7 +51,7 @@ The script used the `subprocess.run` method, which is introduced in Python 3.5.
 Since this script will commit to your git, you'd better create a branch
 first for it to work on.
 
-Also, it will respect `.flake8` config file like `flake8` does.
+Also, it will respect pycodestyle config file in your project.
 
     cd /path/to/code
     /path/to/auto-pep8-commit.py

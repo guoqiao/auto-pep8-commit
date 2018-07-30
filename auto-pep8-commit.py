@@ -5,11 +5,11 @@ import argparse
 import subprocess
 from os.path import abspath, dirname, join, normpath
 
-FLAKE8_MARK = 'FLAKE8'
+ERROR_MARK = 'PEP8'
 
 # default: '%(path)s:%(row)d:%(col)d: %(code)s %(text)s'
 # use | to split, avoid space trouble in text
-FLAKE8_FORMAT = FLAKE8_MARK + "|%(code)s|%(path)s|%(text)s"
+ERROR_FORMAT = ERROR_MARK + "|%(code)s|%(path)s|%(text)s"
 
 
 def debug(*args, **kwargs):
@@ -47,14 +47,14 @@ def main():
     cmd = [
         "python",
         "-m",
-        "flake8",
-        "--format={}".format(FLAKE8_FORMAT),
+        "pycodestyle",
+        "--format={}".format(ERROR_FORMAT),
     ]
     stdout = run(cmd)
 
     lines = stdout.splitlines()
     for line in lines:
-        if line.startswith(FLAKE8_MARK):
+        if line.startswith(ERROR_MARK):
             _, code, path, text = line.split('|')
             if code in tree:
                 tree[code]['paths'].add(path)
