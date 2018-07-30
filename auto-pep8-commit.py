@@ -67,7 +67,7 @@ def main():
                     'paths': {path},
                 }
 
-    items = sorted(tree.values(), key=lambda item: item['count'])
+    items = sorted(tree.values(), key=lambda item: item['code'])
 
     for item in items:
         debug('\nautopep8: {code} {count}: {text}\n'.format(**item))
