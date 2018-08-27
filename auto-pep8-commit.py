@@ -84,6 +84,8 @@ def main():
             "python",
             "-m",
             "autopep8",
+            "--aggressive",
+            "--aggressive",  # repeat
             "--in-place",
             "--select={}".format(item['code']),
         ]
