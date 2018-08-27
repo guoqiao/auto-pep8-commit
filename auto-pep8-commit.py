@@ -101,6 +101,7 @@ def main():
         cmd = [
             "git",
             "commit",
+            "--no-verify",
             "--signoff",
             "--message",
             "PEP8: fix {}: {}".format(item['code'],
