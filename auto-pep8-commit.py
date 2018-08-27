@@ -56,6 +56,9 @@ def main():
     for line in lines:
         if line.startswith(ERROR_MARK):
             _, code, path, text = line.split('|')
+            code = code.strip()
+            path = path.strip()
+            text = text.strip()
             if code in tree:
                 tree[code]['paths'].add(path)
                 tree[code]['count'] = len(tree[code]['paths'])
