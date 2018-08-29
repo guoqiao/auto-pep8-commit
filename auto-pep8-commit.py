@@ -1,20 +1,19 @@
 #!/usr/bin/env python3
 import os
 import sys
+import logging
 import argparse
 import subprocess
 from os.path import abspath, dirname, join, normpath
+
+FORMAT = '%(levelname)s %(asctime)s %(pathname)s #%(lineno)d: %(message)s'
+logging.basicConfig(level=logging.DEBUG, format=FORMAT)
 
 ERROR_MARK = 'PEP8'
 
 # default: '%(path)s:%(row)d:%(col)d: %(code)s %(text)s'
 # use | to split, avoid space trouble in text
 ERROR_FORMAT = ERROR_MARK + "|%(code)s|%(path)s|%(text)s"
-
-
-def debug(*args, **kwargs):
-    kwargs['file'] = sys.stderr
-    print(*args, **kwargs)
 
 
 def main():
@@ -33,13 +32,13 @@ def main():
 
     cwd = os.getcwd()
 
-    debug('working in {}...'.format(cwd))
+    logging.info('working in {}...'.format(cwd))
 
     tree = {}
 
     def run(cmd):
         """Run cmdline and get result"""
-        debug('\nsubprocess.run:', cmd)
+        logging.debug('\nsubprocess.run: %s', cmd)
         return subprocess.run(
             cmd, stdout=subprocess.PIPE, cwd=cwd
         ).stdout.decode('utf-8')
@@ -73,12 +72,12 @@ def main():
     items = sorted(tree.values(), key=lambda item: item['code'])
 
     for item in items:
-        debug('\nautopep8: {code} {count}: {text}\n'.format(**item))
+        logging.debug('\nautopep8: {code} {count}: {text}\n'.format(**item))
 
         paths = list(item['paths'])
 
         for path in paths:
-            debug(path)
+            logging.debug(path)
 
         cmd = [
             "python",
